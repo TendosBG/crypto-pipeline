@@ -1,0 +1,16 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Data — ne pas versionner les fichiers de données
+data/
+
+# dbt
+dbt/logs/
+dbt/crypto_pipeline/target/
+dbt/crypto_pipeline/dbt_packages/
+
+# OS
+.DS_Store
+Thumbs.db
