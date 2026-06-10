@@ -1,12 +1,12 @@
+import os
 import streamlit as st
 import duckdb
 import plotly.express as px
-from pathlib import Path
 
 st.set_page_config(page_title="Crypto Analytics", layout="wide")
 
-db = Path(__file__).parent.parent / "data" / "gold" / "crypto.duckdb"
-con = duckdb.connect(str(db), read_only=True)
+token = os.getenv("MOTHERDUCK_TOKEN") or st.secrets.get("MOTHERDUCK_TOKEN")
+con = duckdb.connect(f"md:crypto_pipeline?motherduck_token={token}")
 
 df_dominance   = con.execute("SELECT * FROM gold_dominance").df()
 df_volatility  = con.execute("SELECT * FROM gold_volatility").df()

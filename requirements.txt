@@ -6,3 +6,4 @@ streamlit
 prefect
 dbt-duckdb
 plotly
+python-dotenv

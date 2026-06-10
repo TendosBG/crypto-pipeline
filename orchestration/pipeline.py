@@ -1,7 +1,11 @@
+import os
 import subprocess
 from prefect import flow, task
 from ingestion.fetch_markets import fetch_top_coins, save_to_bronze
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 @task
 def ingest():
@@ -10,7 +14,11 @@ def ingest():
 
 @task
 def transform():
-    subprocess.run(["dbt", "run"],cwd=Path(__file__).parent.parent / "dbt" / "crypto_pipeline")
+    subprocess.run(
+        ["dbt", "run"],
+        cwd=Path(__file__).parent.parent / "dbt" / "crypto_pipeline",
+        env={**os.environ, "motherduck_token": os.getenv("MOTHERDUCK_TOKEN")},
+    )
 
 @flow
 def crypto_pipeline():
