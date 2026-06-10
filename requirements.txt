@@ -1,6 +1,6 @@
-requests==2.32.3
-pandas==2.2.3
-pyarrow==17.0.0
+requests
+pandas
+pyarrow
 duckdb
 streamlit
 prefect
