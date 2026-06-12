@@ -58,12 +58,13 @@ DE/
 
 ## Phases du projet
 
-- [ ] **Phase 1** — Ingestion : appeler CoinGecko, sauvegarder en Parquet
-- [ ] **Phase 2** — Stockage : structurer Bronze/Silver/Gold avec DuckDB
-- [ ] **Phase 3** — Transformation : modèles dbt (Silver + Gold)
-- [ ] **Phase 4** — Orchestration : Prefect flows + scheduling
-- [ ] **Phase 5** — Visualisation : dashboard Streamlit
-- [ ] **Phase 6** — Conteneurisation Docker (bonus portfolio)
+- [x] **Phase 1** — Ingestion : appeler CoinGecko, sauvegarder en Parquet
+- [x] **Phase 2** — Stockage : structurer Bronze/Silver/Gold avec DuckDB
+- [x] **Phase 3** — Transformation : modèles dbt (Silver + Gold)
+- [x] **Phase 4** — Orchestration : Prefect flows + scheduling
+- [x] **Phase 5** — Visualisation : dashboard Streamlit (déployé sur Streamlit Cloud + MotherDuck)
+- [ ] **Phase 6** — GitHub Actions : automatiser le pipeline sur schedule
+- [ ] **Phase 7** — Conteneurisation Docker (bonus portfolio)
 
 ## Profil développeur
 
