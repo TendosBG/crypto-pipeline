@@ -14,5 +14,5 @@ SELECT
     total_volume,
     ingested_at
 FROM latest
-WHERE price_change_percentage_24h >= 15 OR price_change_percentage_24h <= -15 AND rn = 1
+WHERE (price_change_percentage_24h >= 15 OR price_change_percentage_24h <= -15) AND rn = 1
 ORDER BY ABS(price_change_percentage_24h) DESC
