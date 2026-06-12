@@ -1,7 +1,7 @@
 WITH latest AS (
-    SELECT *,
-        ROW_NUMBER() OVER (PARTITION BY id ORDER BY ingested_at DESC) AS rn
+    SELECT *
     FROM {{ ref('stg_markets') }}
+    WHERE ingested_at = (SELECT MAX(ingested_at) FROM {{ ref('stg_markets') }})
 )
 
 SELECT
@@ -9,10 +9,10 @@ SELECT
     symbol,
     name,
     image,
+    currency,
     price_change_pct_7d,
     price_change_pct_30d,
     ABS(price_change_pct_7d)  AS volatility_7d,
     ABS(price_change_pct_30d) AS volatility_30d
 FROM latest
-WHERE rn = 1
-ORDER BY volatility_30d DESC
+ORDER BY currency, volatility_30d DESC

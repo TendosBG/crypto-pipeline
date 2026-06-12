@@ -1,13 +1,13 @@
 WITH latest AS (
-    SELECT *,
-        ROW_NUMBER() OVER (PARTITION BY id ORDER BY ingested_at DESC) AS rn
+    SELECT *
     FROM {{ ref('stg_markets') }}
+    WHERE ingested_at = (SELECT MAX(ingested_at) FROM {{ ref('stg_markets') }})
 ),
 
 bitcoin AS (
-    SELECT *
+    SELECT currency, price_change_percentage_24h
     FROM latest
-    WHERE id = 'bitcoin' and rn = 1
+    WHERE id = 'bitcoin'
 )
 
 SELECT
@@ -15,10 +15,10 @@ SELECT
     latest.symbol,
     latest.name,
     latest.image,
-    latest.price_change_percentage_24h as variation,
-    bitcoin.price_change_percentage_24h as variationBTC,
-    variation-variationBTC as difference
+    latest.currency,
+    latest.price_change_percentage_24h AS variation,
+    bitcoin.price_change_percentage_24h AS variationBTC,
+    latest.price_change_percentage_24h - bitcoin.price_change_percentage_24h AS difference
 FROM latest
-CROSS JOIN bitcoin
-WHERE latest.rn = 1
-ORDER BY ABS(difference) DESC
+JOIN bitcoin ON latest.currency = bitcoin.currency
+ORDER BY latest.currency, ABS(difference) DESC

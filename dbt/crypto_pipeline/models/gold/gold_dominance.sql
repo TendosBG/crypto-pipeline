@@ -1,7 +1,7 @@
 WITH latest AS (
-    SELECT *,
-        ROW_NUMBER() OVER (PARTITION BY id ORDER BY ingested_at DESC) AS rn
+    SELECT *
     FROM {{ ref('stg_markets') }}
+    WHERE ingested_at = (SELECT MAX(ingested_at) FROM {{ ref('stg_markets') }})
 )
 
 SELECT
@@ -9,9 +9,9 @@ SELECT
     symbol,
     name,
     image,
+    currency,
     market_cap,
-    SUM(market_cap) OVER () as total_market_cap,
-    market_cap / total_market_cap*100 as dominance
+    SUM(market_cap) OVER (PARTITION BY currency) AS total_market_cap,
+    market_cap / total_market_cap * 100 AS dominance
 FROM latest
-WHERE rn = 1
-ORDER BY dominance DESC
+ORDER BY currency, dominance DESC
