@@ -8,6 +8,7 @@ data/
 
 # dbt
 dbt/logs/
+dbt/crypto_pipeline/logs/
 dbt/crypto_pipeline/target/
 dbt/crypto_pipeline/dbt_packages/
 
