@@ -27,5 +27,4 @@ jobs:
       - name: Run pipeline
         env:
           MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
-          motherduck_token: ${{ secrets.MOTHERDUCK_TOKEN }}
         run: python -m orchestration.pipeline
