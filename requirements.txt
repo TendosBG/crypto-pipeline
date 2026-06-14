@@ -1,9 +1,18 @@
-requests
-pandas
-pyarrow
-duckdb
-streamlit
-prefect
-dbt-duckdb
-plotly
-python-dotenv
+# Versions figées pour des builds reproductibles (le CI réinstalle tout
+# depuis zéro à chaque run). Sans pin, une nouvelle release sur PyPI peut
+# casser le pipeline sans qu'on touche au code.
+
+requests==2.32.3
+pandas==2.2.3
+pyarrow==17.0.0
+duckdb==1.5.3
+streamlit==1.58.0
+prefect==3.7.4
+dbt-duckdb==1.10.1
+plotly==6.8.0
+python-dotenv==1.2.2
+
+# fastapi n'est pas une dépendance directe : Prefect la tire pour son serveur
+# API local. Une FastAPI trop récente casse le PrefectRouter de Prefect 3.7.4
+# ("'PrefectRouter' object has no attribute 'routes'"), d'où le pin explicite.
+fastapi==0.136.3
